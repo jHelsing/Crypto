@@ -113,7 +113,28 @@ public class CryptoLib {
 	 * Fermat Witness. Tests values from 2 (inclusive) to "n/3" (exclusive).
 	 **/
 	public static int FermatPT(int n) {
-		return -1;
+		
+		for(int i=2; i < n/3; i++) {
+			int num = modulus(i, 1, n-1, n);
+			num = num % n;
+			if(num != 1){
+				return i;
+			}
+		}
+		return 0;
+	}
+	
+	private static int modulus(final int a, int current, int power, final int mod) {
+		
+		while(power > 0) {
+			current = current*a;
+			while(current > mod) {
+				current = current-mod;
+			}
+			power--;
+		}
+		
+		return current;
 	}
 
 	/**

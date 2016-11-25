@@ -3,7 +3,7 @@ public class CryptoLib {
 	/**
 	 * Returns an array "result" with the values "result[0] = gcd",
 	 * "result[1] = s" and "result[2] = t" such that "gcd" is the greatest
-	 * common divisor of "a" and "b", and "gcd = a * s + b * t".
+	 * common divisor of "a" and "b", and "gcd = a * z + b * y".
 	 **/
 	public static int[] EEA(int a, int b) {
 		// Note: as you can see in the test suite,
@@ -13,11 +13,59 @@ public class CryptoLib {
 		int y = -1;
 		int[] result = new int[3];
 		
+		boolean isSwapped = false;
 		
+		if(b>a) {
+			int temp = a;
+			a=b;
+			b=temp;
+			isSwapped = true;
+		} else if(a==b) {
+			result[0] = a;
+			result[1] = 1;
+			result[2] = 0;
+			return result;
+		}
+		
+		gcd = recursiveGCD(a, b);
+		
+		int[] arr = recursiveReverse(b, a);
+		z = arr[0];
+		y = arr[1];
 		
 		result[0] = gcd;
+		if(isSwapped){
+			int temp = z;
+			z=y;
+			y=temp;
+		}
 		result[1] = z;
 		result[2] = y;
+		return result;
+	}
+	
+	private static int recursiveGCD(int oldRest, int newRest){
+		if(newRest == 0){
+			return oldRest;
+		}
+		int temp = newRest;
+		newRest =  oldRest % newRest;
+		oldRest = temp;
+		
+		return recursiveGCD(oldRest, newRest);
+	}
+	
+	private static int[] recursiveReverse(int a, int b) {
+		if (a == 0) {
+			int[] arr = {1,0};
+			return arr;
+		}
+		int result[] = new int[2];
+		int div = b / a;
+		result = recursiveReverse(b % a, a);
+		int temp = result[0] - result[1]*div;
+		result[0] = result[1];
+		result [1] = temp;
 		return result;
 	}
 

@@ -29,7 +29,7 @@ public class CryptoLib {
 		
 		gcd = recursiveGCD(a, b);
 		
-		int[] arr = recursiveReverse(b, a);
+		int[] arr = recursiveExtended(b, a);
 		z = arr[0];
 		y = arr[1];
 		
@@ -55,14 +55,14 @@ public class CryptoLib {
 		return recursiveGCD(oldRest, newRest);
 	}
 	
-	private static int[] recursiveReverse(int a, int b) {
+	private static int[] recursiveExtended(int a, int b) {
 		if (a == 0) {
 			int[] arr = {1,0};
 			return arr;
 		}
 		int result[] = new int[2];
 		int div = b / a;
-		result = recursiveReverse(b % a, a);
+		result = recursiveExtended(b % a, a);
 		int temp = result[0] - result[1]*div;
 		result[0] = result[1];
 		result [1] = temp;
@@ -73,7 +73,12 @@ public class CryptoLib {
 	 * Returns Euler's Totient for value "n".
 	 **/
 	public static int EulerPhi(int n) {
-		return -1;
+		int counter=0;
+		for(int i=1; i < n;i++){
+			if(recursiveGCD(n,i) == 1)
+			counter++;
+		}
+		return counter;
 	}
 
 	/**
@@ -83,7 +88,7 @@ public class CryptoLib {
 	public static int ModInv(int n, int m) {
 		int[] ans = new int[2];
 		if(recursiveGCD(n,m)==1) {
-			ans = recursiveReverse(m,n);
+			ans = recursiveExtended(m,n);
 		} else if (n < 0) {
 			while (n<=0) {
 				n=n+m;

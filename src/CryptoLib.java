@@ -81,7 +81,26 @@ public class CryptoLib {
 	 * modular inverse does not exist.
 	 **/
 	public static int ModInv(int n, int m) {
-		return -1;
+		int[] ans = new int[2];
+		if(recursiveGCD(n,m)==1) {
+			ans = recursiveReverse(m,n);
+		} else if (n < 0) {
+			while (n<=0) {
+				n=n+m;
+			}
+			return ModInv(n,m);
+		} else {
+			return 0;
+		}
+		
+		if(ans[0] < 0) {
+			int i = ans[0];
+			while (i<0) {
+				i=i+m;
+			}
+			ans[0] = i;
+		}
+		return ans[0];
 	}
 
 	/**

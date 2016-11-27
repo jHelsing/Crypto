@@ -35,7 +35,7 @@ public class CBCXor {
 	 */
 	private static String recoverMessage(byte[] first_block, byte[] encrypted) {
 		
-		// First byte is the IV that we use for decryption encrypted[1]
+		// First byte is the IV that we use for decryption of encrypted[1]
 		
 		return new String(encrypted);
 	}

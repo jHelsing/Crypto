@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class CryptoLib {
 
 	/**
@@ -144,7 +147,12 @@ public class CryptoLib {
 	 * different output values the hash function can produce.
 	 **/
 	public static double HashCP(double n_samples, double size) {
-		return -1;
+		//double num = ((-1)*n_samples*(n_samples-1))/(2*size);
+		//double result = 1-Math.pow(Math.E, num);
+		//BigDecimal bd = new BigDecimal(result);
+		//bd = bd.setScale(6, RoundingMode.HALF_UP);
+		
+		return 1-Math.pow(((size-1)/size), (n_samples*(n_samples-1))/2);
 	}
 
 }

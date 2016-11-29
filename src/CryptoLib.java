@@ -172,7 +172,6 @@ public class CryptoLib {
 	 * different output values the hash function can produce.
 	 **/
 	public static double HashCP(double n_samples, double size) {
-		// We used an approximation of the probability given in the birthday attack Wikipedia page. 
 		return 1-Math.pow(((size-1)/size), (n_samples*(n_samples-1))/2);
 	}
 

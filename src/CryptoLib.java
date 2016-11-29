@@ -1,5 +1,11 @@
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
+/**
+ * We used the number 199412248594 to generate the values used in this assignment.
+ * 
+ * @author Jonathan and Amar
+ * @version 1.0
+ *
+ */
 
 public class CryptoLib {
 
@@ -9,8 +15,6 @@ public class CryptoLib {
 	 * common divisor of "a" and "b", and "gcd = a * z + b * y".
 	 **/
 	public static int[] EEA(int a, int b) {
-		// Note: as you can see in the test suite,
-		// your function should work for any (positive) value of a and b.
 		int gcd = -1;
 		int z = -1;
 		int y = -1;
@@ -47,6 +51,12 @@ public class CryptoLib {
 		return result;
 	}
 	
+	/**
+	 * Recursive function for calculating the greatest common divider between the two parameters.
+	 * @param oldRest
+	 * @param newRest
+	 * @return The greatest common divider between oldRest and newRest.
+	 */
 	private static int recursiveGCD(int oldRest, int newRest){
 		if(newRest == 0){
 			return oldRest;
@@ -58,6 +68,12 @@ public class CryptoLib {
 		return recursiveGCD(oldRest, newRest);
 	}
 	
+	/**
+	 * Help method for calculate the extended part of the Extended Euclidean algorithm.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	private static int[] recursiveExtended(int a, int b) {
 		if (a == 0) {
 			int[] arr = {1,0};
@@ -127,6 +143,15 @@ public class CryptoLib {
 		return 0;
 	}
 	
+	/**
+	 * Calculates the modulus value of a^power in modulus mod. This is done recursively,
+	 * so current represent the value that we have amassed at the moment.
+	 * @param a - The base value of the calculation.
+	 * @param current - The current value of the calculation.
+	 * @param power - How many times a should be multiplied by itself.
+	 * @param mod - The modulus used in this calculation.
+	 * @return The value of a to the power of power in modulus mod.
+	 */
 	private static int modulus(final int a, int current, int power, final int mod) {
 		
 		while(power > 0) {
@@ -147,11 +172,7 @@ public class CryptoLib {
 	 * different output values the hash function can produce.
 	 **/
 	public static double HashCP(double n_samples, double size) {
-		//double num = ((-1)*n_samples*(n_samples-1))/(2*size);
-		//double result = 1-Math.pow(Math.E, num);
-		//BigDecimal bd = new BigDecimal(result);
-		//bd = bd.setScale(6, RoundingMode.HALF_UP);
-		
+		// We used an approximation of the probability given in the birthday attack Wikipedia page. 
 		return 1-Math.pow(((size-1)/size), (n_samples*(n_samples-1))/2);
 	}
 

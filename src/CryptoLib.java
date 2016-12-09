@@ -172,7 +172,30 @@ public class CryptoLib {
 	 * different output values the hash function can produce.
 	 **/
 	public static double HashCP(double n_samples, double size) {
-		return 1-Math.pow(((size-1)/size), (n_samples*(n_samples-1))/2);
+		double top = 1;
+		int count = 1;
+		/* Simplify the calculation by removing the values that
+		 * are above the division and below
+		 */
+		for(double i=size-n_samples+1; i<size; i++) {
+			top *= i;
+			/* Check if the value above the division is dividable with size
+			 * if it is we will divide top with size. In order to not pass the
+			 * max value for double.
+			 */
+			if(top%size == 0 && count < n_samples) {
+				count++;
+				top = top/size;
+			}
+		}
+		
+		/* Calculates the value below the division sign,
+		 * makes sure that the number of times that we already have
+		 * divided the top by is removed from size^n_samples
+		 */
+		double bottom = Math.pow(size, n_samples-count);
+		
+		return 1-(top/bottom);
 	}
 
 }
